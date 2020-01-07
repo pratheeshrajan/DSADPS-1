@@ -130,12 +130,23 @@ if __name__ == '__main__':
 	
 	with open('promptsPS1.txt', 'r') as file:
 		for line in file:
-			node = BT.findNode(BT.getRoot(), line.partition(':')[2].strip())
-			if node is None:
-				print ("Employee id " + str(line.partition(':')[2].strip()) + " is absent today.")
-			else:
-				print ("Employee id " + str(line.partition(':')[2].strip()) + " is present today.")
-
+			whichMethod = line.partition(':')[0].strip();
+			empId = line.partition(':')[2].strip();
+			node = BT.findNode(BT.getRoot(), empId)
+			if whichMethod == 'searchID':
+				if node is None:
+					print ("Employee id " + str(empId) + " is absent today.")
+				else:
+					print ("Employee id " + str(empId) + " is present today.")
+			
+			if whichMethod == 'howOften':
+				if node is None:
+					print ("Employee id " + str(empId) + " is absent today.")
+				else:
+					if(node.attCtr % 2 == 0 ):
+						print("Employee id " + str(empId) + " swiped " + str(node.attCtr) + " times today and is currently outside office.");
+					else :
+						print("Employee id " + str(empId) + " swiped " + str(node.attCtr) + " times today and is currently in office.");
 
 
 	print("\n")
