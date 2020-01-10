@@ -1,0 +1,13 @@
+Total number of employees came today : 6
+Employee id 22 is present today
+Employee id 120 is absent today 
+Employee id 45 is present today
+Employee id 200 is absent today 
+Employee id 12 swiped 0 times today and is currently outside office 
+Employee id 22 swiped 4 times today and is currently outside office 
+Employee id 95 swiped 1 times today and is currently in office 
+Employee attendance: 
+46,2, out
+23,1, in
+45,2, out
+Employee id 22 swiped the most number of times today with a count of 4
