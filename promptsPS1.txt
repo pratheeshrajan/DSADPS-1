@@ -2,3 +2,7 @@ searchID:22
 searchID:120
 searchID:45
 searchID:200
+howOften:12
+howOften:22
+howOften:95
+range:23:46
