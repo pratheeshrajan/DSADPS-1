@@ -42,26 +42,40 @@ class EmpNode(object):
 class BinaryTree(object):
 	def __init__(self):
 		self.root = None
-	
+
 	# Return the number of employees present a day
 	def count_nodes(self, node):
 		if node is None:
 			return 0
 		return 1 + self.count_nodes(node.left) + self.count_nodes(node.right)
-		
-	# Return the root node 
+
+	def isEmpty(self):
+		return False
+	
+	# Return the root node
 	def getRoot(self):
 		return self.root;
 		
 	# Provided a particular id, it will return the node if present
 	# Will return 'None' if not present
-	def findNode(self, node, data):
+	def findNode(self, node,data):
 		if node is not None:
 			if(str(node.getData()) == str(data)):
 				return node;
 			else:
 				return self.findNode(node.getLeft(),data) or self.findNode(node.getRight(),data)	
 		return None
+		
+	# This will search an employee id is present in the binary tree 
+	# will return a bool value based on the search result
+	def search(self, node,data):
+		if node is not None:
+			if(node.getData()==data):
+				node.incCount()
+				return True
+			else:
+				return self.search(node.getLeft(),data) or self.search(node.getRight(),data)	
+		return False
 
 	# Add a new node to the binary tree when a new employee swipes
 	# If an already employee swipes, will increment the attendance counter
@@ -84,17 +98,6 @@ class BinaryTree(object):
 
 		if not self.search(self.root,data):
 			self.root=addUtil(self.root,data)
-	
-	# This will search an employee id is present in the binary tree 
-	# will return a bool value based on the search result
-	def search(self, node, data):
-		if node is not None:
-			if(node.getData()==data):
-				node.incCount()
-				return True
-			else:
-				return self.search(node.getLeft(),data) or self.search(node.getRight(),data)	
-		return False
 
 	# Method will print the attendance status of the employees
 	# between the range given in the start and end employee ids
@@ -116,7 +119,7 @@ class BinaryTree(object):
 		
 	# This method will return the employee node which swiped most in a day
 	# ie the node with max number of attCtr
-	def maxCountNode(self):
+	def findFrequentVisitor(self):
 		def maxCountNodeUtil(node):
 			if node is not None:
 				cc=node.getCount()
@@ -137,7 +140,6 @@ class BinaryTree(object):
 			return None
 		return maxCountNodeUtil(self.root)
 	
-
 # Method which will open the input text file
 # Read each line (emp id) and add to the binary tree
 # if an emp id is already present it will increment the 
@@ -151,14 +153,14 @@ def _readEmployeesRec():
 			
 	return BT;
 
-# Method will return the number of employees who came office today
+# Method will return the number of employees who came office today	
 def _getHeadcountRec(BT):
 	return(BT.count_nodes(BT.getRoot()));
-	
+
 # Method will search for an emp id and return the node if present
 def _searchIDRec(BT, eId):
 	return BT.findNode(BT.getRoot(), eId);
-	
+
 # Method will return how often an employee swiped a day
 def _howOften_Rec(BT, eId):
 	node = BT.findNode(BT.getRoot(), empId);
@@ -202,7 +204,7 @@ if __name__ == '__main__':
 				endEmpId = int(splitData.partition(':')[2].strip()) + 1;
 				BT.printRangePresent(startEmpId, endEmpId, outfile);
 
-	swipedMost = BT.maxCountNode();
+	swipedMost = BT.findFrequentVisitor();
 	outfile.write("Employee id " + str(swipedMost.getData()) + " swiped the most number of times today with a count of " + str(swipedMost.getCount()));
 	
 	print("Done!, check the output  file : " + outfile.name + "\n");
