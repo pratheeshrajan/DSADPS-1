@@ -119,7 +119,7 @@ class BinaryTree(object):
 		
 	# This method will return the employee node which swiped most in a day
 	# ie the node with max number of attCtr
-	def findFrequentVisitor(self):
+	def _frequentVisitorRec(self):
 		def maxCountNodeUtil(node):
 			if node is not None:
 				cc=node.getCount()
@@ -204,10 +204,11 @@ if __name__ == '__main__':
 				endEmpId = int(splitData.partition(':')[2].strip()) + 1;
 				BT.printRangePresent(startEmpId, endEmpId, outfile);
 
-	swipedMost = BT.findFrequentVisitor();
+	swipedMost = BT._frequentVisitorRec();
 	outfile.write("Employee id " + str(swipedMost.getData()) + " swiped the most number of times today with a count of " + str(swipedMost.getCount()));
 	
 	print("Done!, check the output  file : " + outfile.name + "\n");
 	
 	outfile.close()
+	
 	
